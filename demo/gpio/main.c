@@ -19,7 +19,7 @@ int main(void)
         if (key_flag == 1)
         {
             HAL_Delay(20);
-            if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_RESET)
+            if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_RESET)
             {
                 HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
             }
@@ -42,19 +42,19 @@ static void GPIO_Init(void)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2, GPIO_PIN_SET);
     
-    GPIO_InitStruct.Pin = GPIO_PIN_5;
+    GPIO_InitStruct.Pin = GPIO_PIN_0;
     GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     
-    HAL_NVIC_SetPriority(GPIOB_IRQn, 0);
-    HAL_NVIC_EnableIRQ(GPIOB_IRQn);
+    HAL_NVIC_SetPriority(GPIOA_IRQn, 0);
+    HAL_NVIC_EnableIRQ(GPIOA_IRQn);
 
 }
 
 void HAL_GPIO_EXTI_Callback(GPIO_TypeDef *GPIOx, uint32_t GPIO_Pin)
 {
-    if ((GPIOx == GPIOB) && (GPIO_Pin == GPIO_PIN_5))
+    if ((GPIOx == GPIOA) && (GPIO_Pin == GPIO_PIN_0))
     {
         key_flag = 1;
     }
